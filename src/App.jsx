@@ -161,6 +161,7 @@ function Badges() {
                     _hover={{
                       borderColor: "rgba(134, 107, 171, 1)",
                     }}
+                    h={"95%"}
                     onClick={() => handleCredentialUrl(item.credential_url)}
                     borderWidth={"1px"}
                     m={2} p={8}
