@@ -11,6 +11,9 @@ on:
 permissions:
   contents: write
 
+env:
+  NODE_ENV: production
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,7 +32,10 @@ jobs:
         run: npm install
 
       - name: Build React App
-        run: npm run build
+        run: |
+            echo "NODE_ENV=production" >> .env
+            npm run build
+        
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4

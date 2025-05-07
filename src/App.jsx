@@ -19,17 +19,17 @@ function Badges() {
   const [currentPage, setCurrentPage] = useState(1); // Current page
   const itemsPerPage = isMobile ? 4 : 6; // Number of items per page
 
-  // Fetch data from a public API
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch(
-          "/data/badges.json"
-        ); // Replace with your public data URL
-        if (!response.ok) {
-          throw new Error("Failed to fetch data");
-        }
+
+        let url = "";
+        if (process.env.NODE_ENV === "development") url = "/data/badges.json";
+        else url = "https://api-barbarpotato.vercel.app/badges";
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Failed to fetch data");
         const result = await response.json();
         setData(result.data);
       } catch (err) {
@@ -40,6 +40,7 @@ function Badges() {
     };
     fetchData();
   }, []);
+
 
   // Handle pagination logic
   const indexOfLastItem = currentPage * itemsPerPage;
