@@ -6,13 +6,10 @@ on:
       - main
   repository_dispatch:
     types:
-      - redeploy
+      - redeploy  # Trigger the workflow with a custom "redeploy" event
 
 permissions:
   contents: write
-
-env:
-  NODE_ENV: production
 
 jobs:
   build:
@@ -32,8 +29,7 @@ jobs:
         run: npm install
 
       - name: Inject Environment Variables
-        run: |
-          echo "NODE_ENV=production" >> .env
+        run: echo "NODE_ENV=production" >> .env
 
       - name: Build React App
         run: npm run build
@@ -42,4 +38,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: dist
+          folder: dist # or 'build' if using Create React App
